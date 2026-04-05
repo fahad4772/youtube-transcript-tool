@@ -267,6 +267,29 @@ def transcript_to_text(transcript_data) -> str:
     return "\n".join(line for line in lines if line)
 
 
+def fetch_transcript_with_compat(video_id: str):
+    if hasattr(api, "list"):
+        transcript_list = api.list(video_id)
+        language_codes = [transcript.language_code for transcript in transcript_list]
+        try:
+            transcript = transcript_list.find_manually_created_transcript(language_codes)
+        except NoTranscriptFound:
+            transcript = transcript_list.find_generated_transcript(language_codes)
+        transcript_data = transcript.fetch()
+        language = getattr(transcript, "language", "")
+        return transcript_to_text(transcript_data), language
+
+    if hasattr(api, "fetch"):
+        transcript_data = api.fetch(video_id)
+        language = ""
+        if transcript_data:
+            first_item = transcript_data[0]
+            language = getattr(first_item, "language", "") or ""
+        return transcript_to_text(transcript_data), language
+
+    raise AttributeError("Installed youtube-transcript-api version is not supported.")
+
+
 def get_blog_post(posts, slug: str):
     for post in posts:
         if post["slug"] == slug:
@@ -398,15 +421,7 @@ def index():
             error = "Invalid YouTube URL format."
         else:
             try:
-                transcript_list = api.list(video_id)
-                language_codes = [transcript.language_code for transcript in transcript_list]
-                try:
-                    transcript = transcript_list.find_manually_created_transcript(language_codes)
-                except NoTranscriptFound:
-                    transcript = transcript_list.find_generated_transcript(language_codes)
-                transcript_data = transcript.fetch()
-                transcript_text = transcript_to_text(transcript_data)
-                lang_name = transcript.language
+                transcript_text, lang_name = fetch_transcript_with_compat(video_id)
             except TranscriptsDisabled:
                 error = "Transcripts are disabled for this video."
             except NoTranscriptFound:
