@@ -390,6 +390,25 @@ def add_heading_ids(html_text: str):
     return updated, headings
 
 
+def humanize_transcript_error(exc: Exception) -> str:
+    message = str(exc)
+    lowered = message.lower()
+
+    if "too many requests" in lowered or "429" in lowered or "google.com/sorry" in lowered:
+        return (
+            "YouTube is rate-limiting the server right now. "
+            "Please try again in a few minutes or test another public video."
+        )
+
+    if "request to youtube failed" in lowered:
+        return (
+            "Could not retrieve transcript data from YouTube right now. "
+            "Please try again later or use another public video with captions."
+        )
+
+    return f"Error: {exc}"
+
+
 def article_schema(post, canonical_url, image_url):
     return {
         "@context": "https://schema.org",
@@ -450,7 +469,7 @@ def index():
             except ParseError:
                 error = "Could not read transcript data from YouTube. Try another public video with captions enabled."
             except Exception as exc:
-                error = f"Error: {exc}"
+                error = humanize_transcript_error(exc)
 
     canonical_url = url_for("index", _external=True)
     schema = {
