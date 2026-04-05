@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="pt-2 pt-lg-3">
+  <div class="row g-4 align-items-center">
+    <div class="col-lg-7">
+      <div class="plain-article" id="tool-form">
+        <h1 class="headline mb-3">{{ home.hero_title }}</h1>
+        <p class="hero-kicker mb-4">{{ home.hero_subtitle }}</p>
+        <form method="POST" class="search-tool-form">
+          <input type="text" name="video_url" class="form-control form-control-lg" placeholder="Paste YouTube URL here..." required>
+          <button class="btn btn-brand" type="submit">Get Transcript</button>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+        {% endif %}
+        <p class="text-secondary small mt-3 mb-0">{{ home.hero_note }}</p>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="plain-article">
+        <img class="article-thumb mb-0" style="height: 440px;" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=70" alt="Young girl using a laptop for study work" width="900" height="440" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="plain-article text-center">
+    <p class="text-uppercase text-secondary small fw-bold mb-3" style="letter-spacing:0.18em;">As seen in productive workflows for</p>
+    <div class="row g-3 justify-content-center">
+      <div class="col-6 col-md-2"><p class="mb-0 fw-semibold">Students</p></div>
+      <div class="col-6 col-md-2"><p class="mb-0 fw-semibold">Creators</p></div>
+      <div class="col-6 col-md-2"><p class="mb-0 fw-semibold">Writers</p></div>
+      <div class="col-6 col-md-2"><p class="mb-0 fw-semibold">Researchers</p></div>
+      <div class="col-6 col-md-2"><p class="mb-0 fw-semibold">Content Teams</p></div>
+    </div>
+  </div>
+</section>
+
+{% if video_id and transcript %}
+<section class="section-space" id="transcript-result">
+  <div class="row g-4 align-items-stretch">
+    <div class="col-lg-5">
+      <div class="plain-article h-100">
+        <iframe src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen loading="lazy" style="width: 100%; min-height: 100%; height: 100%; border: 0; border-radius: 24px;"></iframe>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="plain-article h-100 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+          <p class="article-meta mb-0">Ready to copy{% if lang_name %} in {{ lang_name }}{% endif %}</p>
+          <button class="btn btn-ghost" onclick="copyTranscript()" type="button">Copy Transcript</button>
+        </div>
+        <div id="copyFeedback" class="copy-feedback mb-2" aria-live="polite"></div>
+        <textarea id="transcriptBox" class="transcript-output form-control flex-grow-1" readonly>{{ transcript }}</textarea>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section-space">
+  <div id="homeHighlights" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for card in home.feature_cards %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <div class="plain-article">
+              <span class="eyebrow">Feature {{ loop.index }}</span>
+              <h2 class="h1 fw-bold mt-3 mb-3">{{ card.title }}</h2>
+              <p class="hero-kicker mb-0">{{ card.text }}</p>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="plain-article">
+              <img class="article-thumb mb-0" style="height: 300px;" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=70" alt="Laptop workspace" width="800" height="300" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn btn-ghost" type="button" data-bs-target="#homeHighlights" data-bs-slide="prev">Previous</button>
+      <button class="btn btn-brand" type="button" data-bs-target="#homeHighlights" data-bs-slide="next">Next</button>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="row g-5 align-items-start">
+    <div class="col-lg-8">
+      <div class="plain-article">
+        {% if featured_posts and featured_posts[0].image %}
+        <img class="article-thumb" style="height: 420px;" src="{{ featured_posts[0].image }}" alt="{{ home.home_article_title }}" width="1200" height="420" loading="lazy" decoding="async">
+        {% endif %}
+        <span class="eyebrow">Homepage Article</span>
+        <h2 class="h1 fw-bold mt-3 mb-3">{{ home.home_article_title }}</h2>
+        <div class="content-body">{{ home.home_article_body_html | safe }}</div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="plain-article">
+        <span class="eyebrow">More Articles</span>
+        <h3 class="h3 fw-bold mt-3 mb-4">Keep reading</h3>
+        {% for post in featured_posts %}
+        <div class="{% if not loop.last %}mb-4 pb-4 border-bottom{% endif %}" style="border-color:#ededed !important;">
+          {% if post.image %}
+          <img class="article-thumb" style="height: 210px;" src="{{ post.image }}" alt="{{ post.title }}" width="600" height="210" loading="lazy" decoding="async">
+          {% endif %}
+          <h4 class="h5 fw-bold mb-1"><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></h4>
+          <p class="article-meta mb-2">{{ post.read_time }} · {{ post.published }}</p>
+          <p class="text-secondary mb-2">{{ post.description }}</p>
+          <a href="{{ url_for('blog_post', slug=post.slug) }}" class="fw-semibold">Read article</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="plain-article mb-4">
+    <span class="eyebrow">How It Works</span>
+    <h2 class="h1 fw-bold mt-3 mb-4">Three quick steps from video link to usable text</h2>
+    <div class="d-flex flex-column gap-3">
+      <div>
+        <h3 class="h5 fw-bold">Paste the video URL</h3>
+        <p class="text-secondary mb-0">Drop in a standard YouTube watch link, short link, shorts link, or embed link.</p>
+      </div>
+      <div>
+        <h3 class="h5 fw-bold">Generate the transcript</h3>
+        <p class="text-secondary mb-0">The tool fetches available transcript text and shows it in a simple readable box.</p>
+      </div>
+      <div>
+        <h3 class="h5 fw-bold">Copy and repurpose</h3>
+        <p class="text-secondary mb-0">Use it for notes, article drafts, summaries, research, FAQ ideas, or content briefs.</p>
+      </div>
+    </div>
+  </div>
+  <div class="plain-article">
+    <span class="eyebrow">Questions</span>
+    <h2 class="h1 fw-bold mt-3 mb-4">Frequently asked questions</h2>
+    <div class="d-flex flex-column gap-3">
+      {% for item in home.faq %}
+      <div>
+        <h3 class="h5 fw-bold">{{ item.question }}</h3>
+        <p class="text-secondary mb-0">{{ item.answer }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  function copyTranscript() {
+    const box = document.getElementById("transcriptBox");
+    if (!box) return;
+    const feedback = document.getElementById("copyFeedback");
+    navigator.clipboard.writeText(box.value).then(() => {
+      if (feedback) {
+        feedback.textContent = "Copied";
+        window.setTimeout(() => {
+          feedback.textContent = "";
+        }, 1800);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const resultBlock = document.getElementById("transcript-result");
+    if (resultBlock) {
+      resultBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+</script>
+{% endblock %}

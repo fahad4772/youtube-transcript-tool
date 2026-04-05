@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="plain-article">
+    <span class="eyebrow">Blog Archive</span>
+    <h1 class="headline" style="font-size: clamp(2rem, 4vw, 3.4rem);">Transcript guides, workflow ideas, and practical publishing articles</h1>
+    <p class="hero-kicker mb-0">Useful supporting content for visitors who want more than just a single input box.</p>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="row g-4">
+    {% for post in posts %}
+    <div class="col-md-6 col-xl-4">
+      <article class="article-card">
+        {% if post.image %}
+        <img class="article-thumb" src="{{ post.image }}" alt="{{ post.title }}">
+        {% endif %}
+        <span class="eyebrow">{{ post.category }}</span>
+        <h2 class="h3 mt-3"><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></h2>
+        <p class="article-meta mb-3">{{ post.read_time }} · {{ post.published }}</p>
+        <p class="text-secondary">{{ post.description }}</p>
+        <a href="{{ url_for('blog_post', slug=post.slug) }}" class="fw-semibold">Read article</a>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

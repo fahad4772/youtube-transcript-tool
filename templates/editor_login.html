@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5">
+      <div class="editor-card p-4 p-lg-5">
+        <span class="eyebrow">Private Access</span>
+        <h1 class="h2 fw-bold mt-3 mb-3">Editor login</h1>
+        <p class="text-secondary mb-4">This page is hidden and password protected before content editing is allowed.</p>
+        {% if login_error %}
+        <div class="alert alert-danger">{{ login_error }}</div>
+        {% endif %}
+        <form method="POST" class="d-flex flex-column gap-3">
+          <div>
+            <label for="editor_password">Password</label>
+            <input id="editor_password" name="editor_password" type="password" class="form-control" required>
+          </div>
+          <button class="btn btn-brand" type="submit">Unlock editor</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

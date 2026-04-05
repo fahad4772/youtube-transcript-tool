@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="plain-article">
+    <span class="eyebrow">Site Page</span>
+    <h1 class="headline" style="font-size: clamp(2rem, 4vw, 3.5rem);">{{ page.title }}</h1>
+    <p class="hero-kicker mb-0">{{ page.hero }}</p>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="plain-article content-body">
+    {{ page.body_html | safe }}
+  </div>
+</section>
+{% endblock %}

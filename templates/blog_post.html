@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="plain-article">
+    <span class="eyebrow">{{ post.category }}</span>
+    <h1 class="headline" style="font-size: clamp(2rem, 4vw, 3.5rem);">{{ post.title }}</h1>
+    <p class="article-meta mb-3">{{ post.read_time }} · {{ post.published }}</p>
+    {% if post.image %}
+    <img class="article-thumb" style="height: 520px;" src="{{ post.image }}" alt="{{ post.title }}" width="1400" height="520" loading="eager" fetchpriority="high" decoding="async">
+    {% endif %}
+    <p class="hero-kicker mb-0">{{ post.intro }}</p>
+    <div class="author-strip">
+      <div class="author-avatar">U2</div>
+      <div>
+        <strong class="d-block">{{ author_name }}</strong>
+        <span class="article-meta">Updated {{ updated_label }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      {% if toc %}
+      <div class="plain-article mb-4">
+        <span class="eyebrow">Contents</span>
+        <h2 class="h3 fw-bold mt-3 mb-3">On this page</h2>
+        <ul class="toc-list">
+          {% for item in toc %}
+          <li><a href="#{{ item.id }}">{{ item.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      <article class="plain-article content-body">
+        {{ post.body_html | safe }}
+      </article>
+    </div>
+    <div class="col-lg-4">
+      <aside class="plain-article">
+        <span class="eyebrow">Related content</span>
+        <h3 class="h3 fw-bold mt-3">Keep exploring</h3>
+        {% for item in related_posts %}
+        <div class="mb-4">
+          {% if item.image %}
+          <img class="article-thumb" style="height: 210px;" src="{{ item.image }}" alt="{{ item.title }}" width="600" height="210" loading="lazy" decoding="async">
+          {% endif %}
+          <h4 class="h5 mb-1"><a href="{{ url_for('blog_post', slug=item.slug) }}">{{ item.title }}</a></h4>
+          <p class="article-meta mb-1">{{ item.read_time }}</p>
+          <p class="text-secondary mb-0">{{ item.description }}</p>
+        </div>
+        {% endfor %}
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

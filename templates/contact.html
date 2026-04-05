@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="plain-article">
+    <span class="eyebrow">Contact</span>
+    <h1 class="headline" style="font-size: clamp(2rem, 4vw, 3.5rem);">{{ page.title }}</h1>
+    <p class="hero-kicker mb-0">{{ page.hero }}</p>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="row g-5">
+    <div class="col-lg-6">
+      <div class="plain-article content-body">
+        {{ page.body_html | safe }}
+        <p><strong>Email:</strong> <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="editor-card p-4 p-lg-5">
+        <h2 class="h3 fw-bold mb-3">Send a message</h2>
+        {% if success_message %}
+        <div class="save-banner">{{ success_message }}</div>
+        {% endif %}
+        {% if form_errors %}
+        <div class="alert alert-danger">
+          {% for error in form_errors %}
+          <div>{{ error }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST" class="d-flex flex-column gap-3">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" class="form-control" value="{{ request.form.get('name', '') }}">
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" class="form-control" value="{{ request.form.get('email', '') }}">
+          </div>
+          <div>
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" class="form-control" value="{{ request.form.get('subject', '') }}">
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6">{{ request.form.get('message', '') }}</textarea>
+          </div>
+          <button class="btn btn-brand" type="submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

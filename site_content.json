@@ -1,0 +1,129 @@
+{
+  "site": {
+    "name": "U2btools",
+    "tagline": "Fast YouTube transcript tools and practical video content guides.",
+    "email": "hello@u2btools.com",
+    "domain": "https://u2btools.com",
+    "year": 2026
+  },
+  "home": {
+    "hero_badge": "Instant Transcript Tool",
+    "hero_title": "Turn YouTube videos into clear text without wasting time.",
+    "hero_subtitle": "Paste a YouTube link, grab the transcript, and then build notes, blog drafts, summaries, or research from one clean workflow.",
+    "hero_note": "This homepage is designed so the main input appears immediately when the page loads.",
+    "tool_heading": "Paste a YouTube URL and get the transcript",
+    "tool_description": "Supports watch links, short links, shorts URLs, and embed URLs.",
+    "home_article_title": "Why a transcript-first workflow helps creators, students, and SEO teams",
+    "home_article_body_html": "<p>Good transcript tools help people move faster. Instead of replaying the same part of a video again and again, users can scan the text, copy important parts, and turn spoken ideas into something usable.</p><p>That matters for students taking notes, marketers building content briefs, writers turning video into articles, and business teams documenting meetings or tutorials.</p><p>On a strong site, the tool should live alongside helpful articles, internal links, policy pages, and clear contact details. That gives visitors more confidence and gives the website more depth than a single isolated form.</p>",
+    "feature_cards": [
+      {
+        "title": "Fast start",
+        "text": "The transcript input is visible above the fold so users can start immediately."
+      },
+      {
+        "title": "Useful output",
+        "text": "Copy the transcript for article drafts, notes, briefs, captions, and research."
+      },
+      {
+        "title": "Content hub",
+        "text": "The homepage links into blog articles so the site feels more complete and useful."
+      }
+    ],
+    "audience_pills": [
+      "Students and notes",
+      "SEO and article outlines",
+      "Creators and repurposing"
+    ],
+    "faq": [
+      {
+        "question": "Is the tool free to use?",
+        "answer": "Yes. You can paste a supported YouTube URL and retrieve transcript text when captions are available."
+      },
+      {
+        "question": "Why does a transcript fail sometimes?",
+        "answer": "Common reasons include missing captions, disabled transcripts, private videos, regional restrictions, or temporary source issues."
+      },
+      {
+        "question": "Can I use transcripts for article writing?",
+        "answer": "Yes. Many users turn transcript text into notes, article outlines, FAQs, summaries, and briefing documents."
+      },
+      {
+        "question": "Can I change this homepage later?",
+        "answer": "Yes. The editor page lets you update hero text, homepage content, and blog posts without editing Python code."
+      }
+    ]
+  },
+  "blog_posts": [
+    {
+      "slug": "how-to-get-a-youtube-transcript",
+      "title": "How to Get a YouTube Transcript Quickly and Cleanly",
+      "description": "A practical guide to extracting captions, cleaning filler text, and turning transcripts into notes.",
+      "category": "Guides",
+      "read_time": "6 min read",
+      "published": "2026-03-31",
+      "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
+      "intro": "YouTube transcripts help with research, note-taking, content repurposing, and accessibility.",
+      "body_html": "<h2>Why transcripts are useful</h2><p>Transcripts make long-form video easier to search, quote, summarize, and repurpose.</p><p>If you regularly work with video content, you may also want to read our internal guide on <a href='/blog/video-to-blog-workflow'>turning video into blog posts</a>.</p><h2>When a transcript may not load</h2><p>Some videos do not have captions, and some publishers disable transcript access.</p><p>For general caption policy context, YouTube provides public help documentation at <a href='https://support.google.com/youtube/answer/6373554?hl=en' target='_blank' rel='noopener'>YouTube Help</a>.</p>"
+    },
+    {
+      "slug": "video-to-blog-workflow",
+      "title": "Turn a Video Transcript into a Blog Post Workflow",
+      "description": "Use transcript text to produce articles, FAQs, summaries, and supporting pages for organic traffic.",
+      "category": "SEO",
+      "read_time": "7 min read",
+      "published": "2026-03-31",
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+      "intro": "A raw transcript is rarely publish-ready, but it is a strong starting point for articles, tutorials, and FAQs.",
+      "body_html": "<h2>Start with structure</h2><p>Break the transcript into major ideas first, then build a headline, summary, and action steps.</p><p>For site owners, this usually works best when paired with policy pages, contact information, and a real publishing section.</p><h2>Create supporting pages</h2><p>Strong sites usually include pages for About, Contact, Privacy Policy, Terms, and editorial standards.</p><p>You can also link out to reputable references when useful, such as <a href='https://developers.google.com/search/docs/fundamentals/creating-helpful-content' target='_blank' rel='noopener'>Google Search guidance on helpful content</a>.</p>"
+    },
+    {
+      "slug": "best-ways-to-use-youtube-transcripts",
+      "title": "Best Ways to Use YouTube Transcripts for Research and Content",
+      "description": "Practical transcript use cases for study notes, content briefs, article outlines, and team documentation.",
+      "category": "Ideas",
+      "read_time": "5 min read",
+      "published": "2026-03-31",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+      "intro": "Once you have the transcript, the real value comes from what you do next.",
+      "body_html": "<h2>Research and note-taking</h2><p>Students and researchers often use transcripts to skim lectures or interviews before deciding what to watch in full.</p><h2>Accessibility and clarity</h2><p>Transcript access helps users read at their own pace and can make content easier to understand.</p><p>For broader accessibility standards, the <a href='https://www.w3.org/WAI/' target='_blank' rel='noopener'>W3C Web Accessibility Initiative</a> offers helpful guidance.</p>"
+    }
+  ],
+  "pages": {
+    "about": {
+      "title": "About U2btools",
+      "description": "Learn what U2btools does, who it serves, and how the site approaches transcript-based tools and educational content.",
+      "hero": "A publishing-style site built around useful transcript tools and practical video workflows.",
+      "body_html": "<h2>What we do</h2><p>U2btools helps people pull YouTube transcripts and turn them into something usable: notes, outlines, summaries, blog drafts, and research material.</p><h2>Who this site is for</h2><p>This site is built for students, researchers, creators, SEO teams, writers, and anyone who needs quick access to spoken content in text form.</p>"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Contact U2btools for support, feedback, business questions, or content corrections.",
+      "hero": "Questions, corrections, partnerships, or general feedback are welcome.",
+      "body_html": "<h2>How to reach us</h2><p>Email us for support, corrections, or business enquiries.</p><p>When reporting a bug, include the YouTube URL you tested and the exact message shown on the page.</p>"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Read how U2btools handles basic website information, contact messages, and third-party services.",
+      "hero": "A straightforward overview of the information this site may handle.",
+      "body_html": "<h2>Information we may receive</h2><p>If you contact us directly, we may receive the information you choose to send, such as your name, email address, and message details.</p><p>The transcript tool processes the YouTube URL you submit in order to request transcript data from the relevant source.</p><h2>Third-party services</h2><p>This site may use third-party services for hosting, analytics, fonts, and embedded content.</p>"
+    },
+    "terms": {
+      "title": "Terms & Conditions",
+      "description": "Read the basic terms for using U2btools and its educational content.",
+      "hero": "Simple terms for using the tool and reading the site.",
+      "body_html": "<h2>Use of the website</h2><p>You agree to use this website lawfully and not to misuse the service or submit content you do not have the right to use.</p><p>The tool is provided as-is without guaranteed availability, accuracy, or suitability for a specific purpose.</p>"
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "description": "Understand the general limitations of the tool, article content, and third-party references on U2btools.",
+      "hero": "Helpful information, but no absolute guarantees.",
+      "body_html": "<h2>General content disclaimer</h2><p>The material on this site is published for general information and usability guidance.</p><p>External links are included for reference and convenience. We do not control third-party sites or guarantee their content.</p>"
+    },
+    "editorial": {
+      "title": "Editorial Guidelines",
+      "description": "Learn how U2btools approaches tutorial content, corrections, references, and updates.",
+      "hero": "A small but clear editorial standard for practical web content.",
+      "body_html": "<h2>How articles are written</h2><p>Articles are written to be practical, readable, and task-focused.</p><p>If you spot an error or outdated claim, email us with the page URL and correction details.</p>"
+    }
+  }
+}

@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section-space pt-4 pt-lg-5">
+  <div class="editor-card p-4 p-lg-5">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+      <div>
+        <span class="eyebrow">Protected Editor</span>
+        <h1 class="display-5 mt-3 mb-3">Edit homepage and blog content from one place</h1>
+        <p class="lead text-secondary mb-0">This editor is hidden and password protected. It now supports direct image uploads for cards and rich article content.</p>
+      </div>
+      <form method="POST" action="{{ url_for('editor_logout') }}">
+        <button class="btn btn-ghost" type="submit">Log out</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <form method="POST">
+    <div class="editor-card p-4 p-lg-5">
+      {% if message %}
+      <div class="save-banner">{{ message }}</div>
+      {% endif %}
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <label for="site_name">Site name</label>
+          <input id="site_name" name="site_name" class="form-control" value="{{ content.site.name }}">
+        </div>
+        <div class="col-lg-6">
+          <label for="site_tagline">Tagline</label>
+          <input id="site_tagline" name="site_tagline" class="form-control" value="{{ content.site.tagline }}">
+        </div>
+        <div class="col-lg-6">
+          <label for="site_email">Email</label>
+          <input id="site_email" name="site_email" class="form-control" value="{{ content.site.email }}">
+        </div>
+        <div class="col-lg-6">
+          <label for="site_domain">Domain</label>
+          <input id="site_domain" name="site_domain" class="form-control" value="{{ content.site.domain }}">
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <h2>Homepage</h2>
+      <div class="row g-4 mt-1">
+        <div class="col-lg-6">
+          <label for="hero_badge">Hero badge</label>
+          <input id="hero_badge" name="hero_badge" class="form-control" value="{{ content.home.hero_badge }}">
+        </div>
+        <div class="col-lg-6">
+          <label for="tool_heading">Tool heading</label>
+          <input id="tool_heading" name="tool_heading" class="form-control" value="{{ content.home.tool_heading }}">
+        </div>
+        <div class="col-12">
+          <label for="hero_title">Hero title</label>
+          <input id="hero_title" name="hero_title" class="form-control" value="{{ content.home.hero_title }}">
+        </div>
+        <div class="col-12">
+          <label for="hero_subtitle">Hero subtitle</label>
+          <textarea id="hero_subtitle" name="hero_subtitle" class="form-control" rows="3">{{ content.home.hero_subtitle }}</textarea>
+        </div>
+        <div class="col-12">
+          <label for="hero_note">Hero note</label>
+          <textarea id="hero_note" name="hero_note" class="form-control" rows="3">{{ content.home.hero_note }}</textarea>
+        </div>
+        <div class="col-12">
+          <label for="tool_description">Tool description</label>
+          <textarea id="tool_description" name="tool_description" class="form-control" rows="2">{{ content.home.tool_description }}</textarea>
+        </div>
+        <div class="col-12">
+          <label for="home_article_title">Homepage article title</label>
+          <input id="home_article_title" name="home_article_title" class="form-control" value="{{ content.home.home_article_title }}">
+        </div>
+        <div class="col-12">
+          <label for="home_article_body_html">Homepage article body HTML</label>
+          <textarea id="home_article_body_html" name="home_article_body_html" class="form-control rich-editor" rows="10">{{ content.home.home_article_body_html }}</textarea>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-1">
+        {% for pill in content.home.audience_pills %}
+        <div class="col-md-4">
+          <label for="audience_pill_{{ loop.index0 }}">Audience pill {{ loop.index }}</label>
+          <input id="audience_pill_{{ loop.index0 }}" name="audience_pill_{{ loop.index0 }}" class="form-control" value="{{ pill }}">
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="row g-4 mt-1">
+        {% for card in content.home.feature_cards %}
+        <div class="col-lg-4">
+          <label for="feature_title_{{ loop.index0 }}">Feature title {{ loop.index }}</label>
+          <input id="feature_title_{{ loop.index0 }}" name="feature_title_{{ loop.index0 }}" class="form-control mb-2" value="{{ card.title }}">
+          <label for="feature_text_{{ loop.index0 }}">Feature text {{ loop.index }}</label>
+          <textarea id="feature_text_{{ loop.index0 }}" name="feature_text_{{ loop.index0 }}" class="form-control" rows="4">{{ card.text }}</textarea>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="row g-4 mt-1">
+        {% for item in content.home.faq %}
+        <div class="col-lg-6">
+          <label for="faq_question_{{ loop.index0 }}">FAQ question {{ loop.index }}</label>
+          <input id="faq_question_{{ loop.index0 }}" name="faq_question_{{ loop.index0 }}" class="form-control mb-2" value="{{ item.question }}">
+          <label for="faq_answer_{{ loop.index0 }}">FAQ answer {{ loop.index }}</label>
+          <textarea id="faq_answer_{{ loop.index0 }}" name="faq_answer_{{ loop.index0 }}" class="form-control" rows="4">{{ item.answer }}</textarea>
+        </div>
+        {% endfor %}
+      </div>
+
+      <hr class="my-4">
+
+      <h2>Blog posts</h2>
+      {% for post in content.blog_posts %}
+      <div class="editor-card p-4 mt-4" style="box-shadow:none;">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <label for="post_slug_{{ loop.index0 }}">Slug</label>
+            <input id="post_slug_{{ loop.index0 }}" name="post_slug_{{ loop.index0 }}" class="form-control" value="{{ post.slug }}">
+          </div>
+          <div class="col-lg-6">
+            <label for="post_title_{{ loop.index0 }}">Title</label>
+            <input id="post_title_{{ loop.index0 }}" name="post_title_{{ loop.index0 }}" class="form-control" value="{{ post.title }}">
+          </div>
+          <div class="col-lg-4">
+            <label for="post_category_{{ loop.index0 }}">Category</label>
+            <input id="post_category_{{ loop.index0 }}" name="post_category_{{ loop.index0 }}" class="form-control" value="{{ post.category }}">
+          </div>
+          <div class="col-lg-4">
+            <label for="post_read_time_{{ loop.index0 }}">Read time</label>
+            <input id="post_read_time_{{ loop.index0 }}" name="post_read_time_{{ loop.index0 }}" class="form-control" value="{{ post.read_time }}">
+          </div>
+          <div class="col-lg-4">
+            <label for="post_published_{{ loop.index0 }}">Published</label>
+            <input id="post_published_{{ loop.index0 }}" name="post_published_{{ loop.index0 }}" class="form-control" value="{{ post.published }}">
+          </div>
+          <div class="col-12">
+            <label for="post_image_{{ loop.index0 }}">Image URL</label>
+            <input id="post_image_{{ loop.index0 }}" name="post_image_{{ loop.index0 }}" class="form-control image-url-field" value="{{ post.image }}">
+            <div class="upload-row">
+              <input type="file" class="form-control image-upload-input" accept=".jpg,.jpeg,.png,.webp,.gif" data-target="post_image_{{ loop.index0 }}">
+              <button class="btn btn-ghost upload-trigger" type="button">Upload image</button>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="post_description_{{ loop.index0 }}">Card description</label>
+            <textarea id="post_description_{{ loop.index0 }}" name="post_description_{{ loop.index0 }}" class="form-control" rows="3">{{ post.description }}</textarea>
+          </div>
+          <div class="col-12">
+            <label for="post_intro_{{ loop.index0 }}">Intro</label>
+            <textarea id="post_intro_{{ loop.index0 }}" name="post_intro_{{ loop.index0 }}" class="form-control" rows="3">{{ post.intro }}</textarea>
+          </div>
+          <div class="col-12">
+            <label for="post_body_html_{{ loop.index0 }}">Body HTML</label>
+            <textarea id="post_body_html_{{ loop.index0 }}" name="post_body_html_{{ loop.index0 }}" class="form-control rich-editor" rows="12">{{ post.body_html }}</textarea>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <hr class="my-4">
+
+      <h2>Add a new blog post</h2>
+      <div class="row g-4 mt-1">
+        <div class="col-lg-6">
+          <label for="new_post_slug">New post slug</label>
+          <input id="new_post_slug" name="new_post_slug" class="form-control" placeholder="my-new-post">
+        </div>
+        <div class="col-lg-6">
+          <label for="new_post_title">New post title</label>
+          <input id="new_post_title" name="new_post_title" class="form-control" placeholder="My new article">
+        </div>
+        <div class="col-lg-4">
+          <label for="new_post_category">Category</label>
+          <input id="new_post_category" name="new_post_category" class="form-control" placeholder="Guides">
+        </div>
+        <div class="col-lg-4">
+          <label for="new_post_read_time">Read time</label>
+          <input id="new_post_read_time" name="new_post_read_time" class="form-control" placeholder="5 min read">
+        </div>
+        <div class="col-lg-4">
+          <label for="new_post_published">Published date</label>
+          <input id="new_post_published" name="new_post_published" class="form-control" placeholder="2026-03-31">
+        </div>
+        <div class="col-12">
+          <label for="new_post_image">Image URL</label>
+          <input id="new_post_image" name="new_post_image" class="form-control" placeholder="https://...">
+          <div class="upload-row">
+            <input type="file" class="form-control image-upload-input" accept=".jpg,.jpeg,.png,.webp,.gif" data-target="new_post_image">
+            <button class="btn btn-ghost upload-trigger" type="button">Upload image</button>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="new_post_description">Description</label>
+          <textarea id="new_post_description" name="new_post_description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="col-12">
+          <label for="new_post_intro">Intro</label>
+          <textarea id="new_post_intro" name="new_post_intro" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="col-12">
+          <label for="new_post_body_html">Body HTML</label>
+          <textarea id="new_post_body_html" name="new_post_body_html" class="form-control rich-editor" rows="10"><h2>New section</h2><p>Write your article here.</p></textarea>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button class="btn btn-brand" type="submit">Save all changes</button>
+      </div>
+    </div>
+  </form>
+</section>
+<script src="https://cdn.tiny.cloud/1/do8eo76x0kzccw2i93gsn4trvhev3gxumfa5dy186wufb2c9/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '.rich-editor',
+    height: 420,
+    menubar: 'file edit view insert format table tools help',
+    plugins: 'advlist autolink lists link image media table code autoresize visualblocks wordcount preview',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist blockquote | link image media table | forecolor backcolor | removeformat code preview',
+    promotion: false,
+    branding: false,
+    images_upload_url: '{{ upload_url }}',
+    automatic_uploads: true,
+    images_reuse_filename: false,
+    images_upload_handler: function (blobInfo, progress) {
+      return new Promise(function(resolve, reject) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '{{ upload_url }}');
+        xhr.upload.onprogress = function(e) {
+          progress(e.loaded / e.total * 100);
+        };
+        xhr.onload = function() {
+          if (xhr.status < 200 || xhr.status >= 300) {
+            reject('Image upload failed.');
+            return;
+          }
+          const json = JSON.parse(xhr.responseText);
+          resolve(json.location);
+        };
+        const formData = new FormData();
+        formData.append('image', blobInfo.blob(), blobInfo.filename());
+        xhr.send(formData);
+      });
+    },
+    content_style: 'body { font-family: Inter, sans-serif; font-size: 16px; line-height: 1.7; }'
+  });
+
+  async function uploadEditorImage(fileInput, targetId) {
+    const file = fileInput.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    const response = await fetch('{{ upload_url }}', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      alert(data.error || 'Upload failed');
+      return;
+    }
+    document.getElementById(targetId).value = data.location;
+  }
+
+  document.querySelectorAll('.upload-trigger').forEach(function(button) {
+    button.addEventListener('click', async function() {
+      const row = button.closest('.upload-row');
+      const input = row.querySelector('.image-upload-input');
+      await uploadEditorImage(input, input.dataset.target);
+    });
+  });
+</script>
+{% endblock %}
