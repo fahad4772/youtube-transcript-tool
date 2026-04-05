@@ -287,6 +287,27 @@ def fetch_transcript_with_compat(video_id: str):
             language = getattr(first_item, "language", "") or ""
         return transcript_to_text(transcript_data), language
 
+    if hasattr(YouTubeTranscriptApi, "fetch"):
+        transcript_data = YouTubeTranscriptApi.fetch(video_id)
+        language = ""
+        try:
+            first_item = transcript_data[0] if transcript_data else None
+            language = getattr(first_item, "language", "") or ""
+        except Exception:
+            language = ""
+        return transcript_to_text(transcript_data), language
+
+    if hasattr(YouTubeTranscriptApi, "get_transcript"):
+        transcript_data = YouTubeTranscriptApi.get_transcript(video_id)
+        return transcript_to_text(transcript_data), ""
+
+    if hasattr(YouTubeTranscriptApi, "list_transcripts"):
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        transcript = transcript_list.find_transcript(["en", "en-US", "hi"])
+        transcript_data = transcript.fetch()
+        language = getattr(transcript, "language", "")
+        return transcript_to_text(transcript_data), language
+
     raise AttributeError("Installed youtube-transcript-api version is not supported.")
 
 
